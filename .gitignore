@@ -1,0 +1,22 @@
+# Build and local toolchains
+.gradle/
+.kotlin/
+.tools/
+**/build/
+local.properties
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+# Signing and secrets
+*.jks
+*.keystore
+keystore.properties
+.env
+.env.*
+!.env.example
+# Private vehicle data and opt-in logs
+*.log
+diagnostic-logs/
+vehicle-data/
+captures/
