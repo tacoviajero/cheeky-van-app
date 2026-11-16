@@ -42,9 +42,22 @@ is `feature/milestone-0-foundation`; foundation source commit: `8d89c5c`.
 After explicit owner approval, the base `.gitignore` commit
 `66392f4ef881a7176260c0e2319bffe1e02b49e2` was published and verified on remote `main`.
 Terminal Git lacked push credentials; publication used the connected GitHub integration.
-Current branch publication, PR, hosted CI and branch-protection status are to be confirmed
-by the dedicated version-control chat. That chat also owns reconciling the local and
-remote base histories before publishing the feature branch.
+On 2026-11-16 the version-control chat reconciled the unpublished branch onto remote
+`main`, preserving the source tree and a local backup reference. Original foundation
+`8d89c5c` became `78468d3`; the name/scope correction is `a8f0447` and project/device
+documentation is `f20a6ac`. Terminal authentication was subsequently configured and
+the feature branch was published through Git.
+
+PR: https://github.com/tacoviajero/cheeky-van-app/pull/1 (base `main`).
+The initial PR workflow run `43957968079` failed during SDK setup because the action's
+default package list includes the retired `tools` package. CI now explicitly selects
+`platform-tools`; Android platform 36 and build tools 35.0.0 remain pinned below it.
+Dependency review also failed because Dependency graph is disabled; owner intervention
+was requested to enable it before retrying. These are hosted CI setup failures, not
+application test results.
+
+Repository API inspection confirmed `main` is unprotected and the rulesets list is
+empty. Owner configuration and approval remain required before merge.
 
 ## Android device session — results
 
@@ -94,7 +107,7 @@ the remaining visual checks below.
 ## Remaining acceptance gates
 
 - Owner review of the foundation; scrolling beyond the current content and additional device sizes remain future regression cases.
-- Version-control chat: publish the feature branch, open a PR and verify hosted CI.
+- Version-control chat: verify successful hosted CI on the published PR's final revision.
 - Review the changes and configure required checks/branch protection before merging.
 - Confirm package identifier ownership before a signed distribution.
 
