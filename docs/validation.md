@@ -63,10 +63,9 @@ APK upload steps were skipped after the lint failure. This hosted run does not e
 successful JVM tests or both APK builds. The prior local and device results above remain
 separate evidence.
 
-Resolving the target SDK/lint policy belongs to the development chat; the version-control
-chat records this blocker without changing application compatibility or lint severity.
-The final documentation commit will trigger another run; consult PR checks for that
-revision. Hosted CI remains a failing acceptance gate until the development issue is fixed.
+The development chat subsequently supplied the targeted lint-policy correction described
+below. Hosted run `43962044697` verified the correction successfully on `17754f7`.
+The earlier failing runs remain historical evidence.
 
 Repository API inspection confirmed `main` is unprotected and the rulesets list is
 empty. Owner configuration and approval remain required before merge.
@@ -119,7 +118,7 @@ the remaining visual checks below.
 ## Remaining acceptance gates
 
 - Owner review of the foundation; scrolling beyond the current content and additional device sizes remain future regression cases.
-- Version-control chat: verify successful hosted CI on the published PR's final revision.
+- Hosted CI passed on correction `17754f7`; verify the latest documentation revision in PR checks before merge.
 - Review the changes and configure required checks/branch protection before merging.
 - Confirm package identifier ownership before a signed distribution.
 
@@ -230,4 +229,15 @@ failed as expected in 1m 1s: `MissingApplicationIcon` and `UnusedResources` were
 errors, while `OldTargetApi` remained a hint. The probe manifest was then restored.
 The original/error, corrected/hint and unrelated-warning XML evidence is under
 ignored `.tools/lint-policy-*.xml`; these fixtures are excluded from Git and CI.
-This correction has not yet been verified in a newly published hosted CI run.
+The version-control chat published the correction as
+`17754f7fda320eed846835cc0dc2170c4142ffdb` on the existing PR branch.
+Hosted PR run https://github.com/tacoviajero/cheeky-van-app/actions/runs/43962044697
+completed successfully: both `Validate Android` and `Review dependency vulnerabilities`
+passed. Wrapper validation, formatting, strict lint with the documented advisory policy,
+JVM tests, both debug APK builds and packaged-manifest privacy all passed. Validation
+reports and debug APK artifacts were uploaded successfully by CI. This run does not
+execute connected-device instrumentation; the recorded physical-device checks remain
+separate evidence. The subsequent evidence-only commit triggers fresh PR checks.
+
+Owner review and main branch-protection configuration remain pending. Merge requires
+the owner's explicit approval; milestone 1 remains subject to approval.
