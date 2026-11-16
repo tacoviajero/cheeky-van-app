@@ -2,6 +2,11 @@
 
 ## Foundation
 
+Cheeky Van App serves our VW Transporter T5, 2.0 TDI CAAC, manual. Architecture,
+dashboard behavior and performance work prioritize this personal vehicle. Interfaces
+isolate simulation, parsing and transport for testing. Vehicle-specific readings must
+be verified against the actual T5 and adapter before they enter the dashboard.
+
 One Gradle `app` module keeps the initial build simple. The only current production
 package is `presentation`, containing `MainActivity` and a stateless Compose launch
 screen. There is no mutable application state yet. The following packages are added

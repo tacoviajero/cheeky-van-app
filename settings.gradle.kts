@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "MachineDashboard"
+rootProject.name = "CheekyVanApp"
 include(":app")

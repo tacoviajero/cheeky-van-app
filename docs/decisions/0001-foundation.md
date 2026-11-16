@@ -5,8 +5,8 @@ Status: Accepted for initial implementation; owner foundation review pending.
 
 ## Context
 
-Machine Dashboard starts with one Android device, one T5 and one ELM327-compatible
-adapter, while requiring independent simulation and transport testing.
+Cheeky Van App is a personal Android application optimized for our VW Transporter T5
+and its ELM327-compatible adapter, with independent simulation and transport testing.
 
 ## Decision
 

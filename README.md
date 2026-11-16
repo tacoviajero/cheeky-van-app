@@ -1,8 +1,9 @@
-# Machine Dashboard
+# Cheeky Van App
 
-Native Android vehicle telemetry and diagnostics application. Initial target: 2013
-Volkswagen Transporter T5, 2.0 TDI CAAC, manual, with a Bluetooth Classic ELM327-compatible
-adapter. Version: **0.1.0**, foundation under review.
+Personal native Android telemetry and diagnostics application, designed and optimized
+for our 2013 Volkswagen Transporter T5, 2.0 TDI CAAC, manual, with a Bluetooth Classic
+ELM327-compatible adapter. Our van and its owners' needs guide the interface, telemetry
+and performance decisions. Version: **0.1.0**, foundation under review.
 
 The current application opens a dark, scrollable foundation screen with connection
 availability and a safety notice. Telemetry and adapter connectivity are planned in
@@ -77,6 +78,7 @@ OEM device-to-device transfer policies can vary. Future preferences and diagnost
 remain local, with explicit read-only command allowlisting and opt-in redacted logs.
 Never put keys, identifiers, raw vehicle logs, or private captures in Git or CI artifacts.
 
-Simulation, configurable dashboards, profiles, GPS, maps, trips, fuel estimation,
-and diagnostic history remain in the roadmap. The next milestone starts after the
+Simulation, configurable dashboards, GPS, maps, trips, fuel estimation,
+and diagnostic history for our T5 remain in the roadmap. The current scope targets
+this single vehicle. The next milestone starts after the
 owner approves the foundation. Hardware behavior and UI rendering require device validation.
