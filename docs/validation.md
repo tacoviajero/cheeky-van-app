@@ -200,3 +200,34 @@ review. The owner subsequently explicitly authorized the handoff, commits, featu
 branch publication, PR creation and CI verification on 2026-11-16. The version-control
 chat accepted that work; publication and hosted results are recorded in the repository
 section as they become available. Merge remains subject to explicit owner approval.
+
+## OldTargetApi CI correction — 2026-11-16
+
+The development chat inspected hosted run
+https://github.com/tacoviajero/cheeky-van-app/actions/runs/43958929461 and the
+`Validate Android` job log (`133620815048`). Dependency review passed; Android lint
+failed with exactly one issue, `OldTargetApi`, at target SDK 36.
+
+The correction retains compile/target API 36 and sets only `OldTargetApi` to
+`informational` in the AGP lint DSL. The advisory remains visible as `Hint` in lint
+reports when triggered. `warningsAsErrors` and `abortOnError` remain enabled.
+Rationale and migration conditions are recorded in
+[ADR 0002](decisions/0002-target-sdk-lint-policy.md).
+
+Local gate passed offline in 1m 37s (50 tasks: 12 executed, 38 up-to-date):
+`spotlessCheck`, `lintDebug`, `compileDebugKotlin`, `compileDebugAndroidTestKotlin`,
+and `testDebugUnitTest`. JVM tests were up-to-date; their report records 3 passed,
+zero failures/errors/skips. The packaged-manifest privacy check passed separately.
+
+An isolated copy under ignored `.tools/lint-policy-probe/` used temporary target API
+35 to trigger the same advisory with the locally installed SDK 36. Before the policy
+change, lint failed with one `OldTargetApi` error. With the correction, lint passed
+in 1m 14s and the XML/text reports retained one `OldTargetApi` hint (zero errors or
+warnings). The real project's compile/target SDK stayed at 36 throughout.
+
+A negative check removed the application icon only in that isolated copy. Lint
+failed as expected in 1m 1s: `MissingApplicationIcon` and `UnusedResources` were
+errors, while `OldTargetApi` remained a hint. The probe manifest was then restored.
+The original/error, corrected/hint and unrelated-warning XML evidence is under
+ignored `.tools/lint-policy-*.xml`; these fixtures are excluded from Git and CI.
+This correction has not yet been verified in a newly published hosted CI run.

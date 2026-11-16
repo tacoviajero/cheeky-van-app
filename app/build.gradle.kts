@@ -30,6 +30,8 @@ android {
         abortOnError = true
         warningsAsErrors = true
         checkTestSources = true
+        // API 36 is the validated target for this personal app; see ADR 0002.
+        informational += "OldTargetApi"
         // Dependabot owns version updates; keep lint reproducible for the verified toolchain.
         disable += setOf("AndroidGradlePluginVersion", "GradleDependency", "NewerVersionAvailable")
     }

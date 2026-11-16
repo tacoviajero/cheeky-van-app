@@ -10,6 +10,8 @@ and excludes persistent storage from both cloud backup and device transfers. The
 the actual source manifest and backup configuration, rather than generated constants.
 Dependency-version update notices are excluded from lint because the compatible
 toolchain is deliberately pinned; Dependabot and dependency review own that process.
+`OldTargetApi` remains visible as information for the deliberately validated target
+API 36; all other enabled lint warnings remain fatal. See [ADR 0002](decisions/0002-target-sdk-lint-policy.md).
 
 `assembleDebug` builds the installable application; `assembleDebugAndroidTest` compiles
 the Compose launch test. `connectedDebugAndroidTest` executes that test using AndroidJUnitRunner

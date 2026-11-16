@@ -40,6 +40,8 @@ Windows PowerShell:
 
 On Linux/macOS use `./gradlew` with the same tasks. Run `spotlessApply` to format
 Kotlin and build scripts. Lint and Kotlin compiler warnings fail validation.
+The target-SDK freshness advisory is informational for the validated API 36 target;
+see [SDK policy](docs/decisions/0002-target-sdk-lint-policy.md).
 
 With an emulator or authorized USB device connected, run:
 
