@@ -52,9 +52,21 @@ PR: https://github.com/tacoviajero/cheeky-van-app/pull/1 (base `main`).
 The initial PR workflow run `43957968079` failed during SDK setup because the action's
 default package list includes the retired `tools` package. CI now explicitly selects
 `platform-tools`; Android platform 36 and build tools 35.0.0 remain pinned below it.
-Dependency review also failed because Dependency graph is disabled; owner intervention
-was requested to enable it before retrying. These are hosted CI setup failures, not
-application test results.
+Dependency review also failed because Dependency graph was disabled. The owner enabled
+it and the subsequent PR run passed dependency review.
+
+Hosted PR run: https://github.com/tacoviajero/cheeky-van-app/actions/runs/43958248302
+for `a1183c3`. SDK setup, wrapper validation, dependency resolution and formatting passed.
+`Validate Android` failed at strict lint with `OldTargetApi` in `app/build.gradle.kts:14`:
+the hosted lint check considers target API 36 outdated. Packaged-manifest privacy and
+APK upload steps were skipped after the lint failure. This hosted run does not establish
+successful JVM tests or both APK builds. The prior local and device results above remain
+separate evidence.
+
+Resolving the target SDK/lint policy belongs to the development chat; the version-control
+chat records this blocker without changing application compatibility or lint severity.
+The final documentation commit will trigger another run; consult PR checks for that
+revision. Hosted CI remains a failing acceptance gate until the development issue is fixed.
 
 Repository API inspection confirmed `main` is unprotected and the rulesets list is
 empty. Owner configuration and approval remain required before merge.
