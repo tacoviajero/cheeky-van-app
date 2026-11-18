@@ -6,7 +6,7 @@ activity = "1.10.1"
 junit = "4.13.2"
 androidx-junit = "1.2.1"
 test-runner = "1.6.2"
-spotless = "8.1.0"
+spotless = "8.11.0"
 ktlint = "1.7.1"
 
 [libraries]
