@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Cheeky Van App</string>
+  <string name="foundation_status">Vehicle connection unavailable</string>
+  <string name="foundation_description">Pairing and telemetry will be available in a future version.</string>
+  <string name="safety_notice">Always use your vehicle’s instruments and follow the manufacturer’s safety warnings.</string>
+</resources>
