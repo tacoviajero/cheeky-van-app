@@ -18,6 +18,21 @@
 - Informa qué cambió, qué verificaste, los resultados reales y los pendientes relevantes. Distingue compilación, pruebas automatizadas, revisión visual y validación con hardware.
 - Declara completa una tarea únicamente cuando satisfaga sus criterios obligatorios. Mantén `docs/validation.md` actualizado cuando cambie la evidencia del hito.
 
+## Política global de esfuerzo y validación proporcional
+
+La [política obligatoria compartida](https://github.com/tacoviajero/engineering-standards/blob/main/policies/effort-validation.md) es la fuente canónica. Aplica estas obligaciones operativas en **cada tarea**, incluso si no puedes consultar el otro repositorio durante la sesión:
+
+- **Antes de actuar**, identifica de forma proporcional al tamaño de la tarea qué cambiará, su nivel de riesgo, la validación necesaria y la condición de finalización. Para tareas triviales basta una nota breve.
+- **Clasifica por impacto, no por número de archivos:** nivel 1 para cambios aislados y no críticos; nivel 2 para cambios funcionales que afecten componentes o integraciones; nivel 3 para seguridad/autenticación, migraciones, operaciones destructivas, concurrencia, arquitectura compartida o funcionalidades críticas.
+- **Valida según el riesgo:** nivel 1, comprobación puntual; nivel 2, pruebas específicas y de integraciones afectadas; nivel 3, pruebas relevantes de integración y regresión, ampliadas a la suite completa cuando el impacto o las reglas obligatorias lo exijan.
+- **Empieza por la verificación más específica** capaz de detectar el fallo. No repitas suites, compilaciones ni pruebas sobre un mismo estado sin justificación. No agregues pruebas ajenas al cambio ni transformes advertencias no relacionadas en tareas nuevas. Respeta siempre los controles obligatorios del repositorio y de CI; si son excesivos, propón revisarlos por separado, sin omitirlos.
+- **Limita la autonomía al alcance autorizado.** Puedes corregir fallos causados por tu trabajo y repetir sólo la verificación invalidada. Después de **dos intentos fallidos** sobre el mismo problema, detente y presenta el diagnóstico. Reporta fallos ajenos sin corregirlos; solicita autorización para refactorizaciones amplias, dependencias importantes o cambios arquitectónicos no aprobados.
+- **Reutiliza evidencia verificable** de pruebas previas sólo si código, dependencias y condiciones relevantes permanecen equivalentes y ninguna obligación exige repetirlas. Una afirmación no verificable de otro agente no basta.
+- **Detente** cuando se cumplan los criterios de aceptación y las verificaciones necesarias, o cuando exista un bloqueo o decisión no autorizada. No busques más problemas por costumbre.
+- **Al cerrar**, informa brevemente qué cambió, qué comprobaste y su resultado, qué quedó sin verificar y los bloqueos pertinentes.
+
+`docs/validation.md` registra evidencia específica del proyecto y sus hitos; preserva esa evidencia histórica. Esta sección aplica la política global sin sustituir sus normas técnicas particulares. Las actualizaciones futuras de la política canónica **no se sincronizan automáticamente**: revisa su impacto y actualiza estas instrucciones de forma explícita. Requisitos de seguridad, CI e instrucciones de mayor prioridad siguen siendo obligatorios.
+
 ## Seguridad de la app
 
 - Aplica mínimo privilegio y valida entradas externas, incluidas las respuestas del adaptador.
