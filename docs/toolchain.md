@@ -13,6 +13,7 @@ through reviewed pull requests.
 | Activity Compose | 1.10.1 | [Release notes](https://developer.android.com/jetpack/androidx/releases/activity#1.10.1) |
 | JUnit | 4.13.2 | [JUnit releases](https://github.com/junit-team/junit4/releases/tag/r4.13.2) |
 | AndroidX test JUnit / runner | 1.2.1 / 1.6.2 | [AndroidX Test releases](https://developer.android.com/jetpack/androidx/releases/test) |
+| Lifecycle / Coroutines | 2.9.0 / 1.9.0 | [Lifecycle releases](https://developer.android.com/jetpack/androidx/releases/lifecycle#2.9.0), [Coroutines release](https://github.com/Kotlin/kotlinx.coroutines/releases/tag/1.9.0) |
 | Spotless / ktlint | 8.1.0 / 1.7.1 | [Plugin release](https://plugins.gradle.org/plugin/com.diffplug.spotless/8.1.0), [ktlint release](https://github.com/ktlint/ktlint/releases/tag/1.7.1) |
 
 Kotlin 2.3.10's documented Gradle range is 7.6.3–9.0.0 and AGP range 8.2.2–9.0.0.

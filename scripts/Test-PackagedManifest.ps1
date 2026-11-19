@@ -6,6 +6,13 @@ $ErrorActionPreference = 'Stop'
 [xml]$machineDashboardManifest = Get-Content -LiteralPath $ManifestPath -Raw
 $machineDashboardNamespace = 'http://schemas.android.com/apk/res/android'
 $machineDashboardInternalPermission = 'com.machinedashboard.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'
+$cheekyVanAllowedPermissions = @{
+    'com.machinedashboard.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION' = ''
+    'android.permission.BLUETOOTH' = '30'
+    'android.permission.BLUETOOTH_CONNECT' = ''
+    'android.permission.ACCESS_COARSE_LOCATION' = ''
+    'android.permission.ACCESS_FINE_LOCATION' = ''
+}
 
 $machineDashboardPermissions = $machineDashboardManifest.SelectNodes('/manifest/uses-permission | /manifest/uses-permission-sdk-23')
 $machineDashboardDeclarations = $machineDashboardManifest.SelectNodes('/manifest/permission')
@@ -14,8 +21,11 @@ if ($machineDashboardPermissions.Count -gt 0 -and $machineDashboardDeclarations.
 }
 foreach ($machineDashboardPermission in $machineDashboardPermissions) {
     $machineDashboardPermissionName = $machineDashboardPermission.GetAttribute('name', $machineDashboardNamespace)
-    if ($machineDashboardPermissionName -ne $machineDashboardInternalPermission) {
+    if (-not $cheekyVanAllowedPermissions.ContainsKey($machineDashboardPermissionName)) {
         throw "Unexpected packaged permission: $machineDashboardPermissionName"
+    }
+    if ($machineDashboardPermission.GetAttribute('maxSdkVersion', $machineDashboardNamespace) -ne $cheekyVanAllowedPermissions[$machineDashboardPermissionName]) {
+        throw "Unexpected SDK scope for permission: $machineDashboardPermissionName"
     }
 }
 
@@ -35,4 +45,4 @@ if ($machineDashboardApplication.GetAttribute('fullBackupContent', $machineDashb
     throw 'The packaged application must use the verified backup and transfer exclusions.'
 }
 
-Write-Output 'Packaged manifest privacy check passed: only the AndroidX internal signature permission is allowed; Android backup is disabled.'
+Write-Output 'Packaged manifest privacy check passed: only paired Bluetooth, foreground location and the AndroidX internal signature permission are allowed; Android backup is disabled.'

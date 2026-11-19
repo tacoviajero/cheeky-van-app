@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">Cheeky Van App</string>
-  <string name="foundation_status">Vehicle connection unavailable</string>
-  <string name="foundation_description">Pairing and telemetry will be available in a future version.</string>
-  <string name="safety_notice">Always use your vehicle’s instruments and follow the manufacturer’s safety warnings.</string>
+  <string name="safety_notice">Usa siempre los instrumentos del vehículo y sigue las advertencias de seguridad del fabricante.</string>
+  <string name="simulation_badge">SIMULACIÓN</string>
+  <string name="vehicle_name">VW T5 · 2.0 TDI CAAC</string>
+  <string name="scenario_stopped">Motor apagado</string>
+  <string name="scenario_running">En marcha</string>
+  <string name="scenario_missing">Sensor sin datos</string>
+  <string name="no_data">Sin datos</string>
+  <string name="unavailable_value">—</string>
+  <string name="bluetooth_connect">Bluetooth</string>
+  <string name="test_adapter_connect">Probar adaptador</string>
+  <string name="test_adapter_badge">PRUEBA</string>
+  <string name="bluetooth_badge">OBD</string>
+  <string name="paired_adapters">Adaptadores emparejados</string>
+  <string name="no_paired_adapters">No hay dispositivos compatibles emparejados. Empareja el adaptador desde los ajustes Bluetooth del teléfono.</string>
+  <string name="bluetooth_permission_denied">Permiso de conexión Bluetooth denegado. Puedes volver a solicitarlo desde el botón Bluetooth; si el sistema no lo muestra, habilítalo en los ajustes de la app.</string>
+  <string name="bluetooth_enable">Activa Bluetooth en los ajustes del teléfono para conectar el adaptador.</string>
+  <string name="close">Cerrar</string>
+  <string name="disconnect">Desconectar</string>
+  <string name="back_to_demo">Volver a simulación</string>
+  <string name="simulate_loss">Simular pérdida</string>
+  <string name="connection_disconnected">Desconectado</string>
+  <string name="connection_connecting">Conectando…</string>
+  <string name="connection_initializing">Inicializando ELM327…</string>
+  <string name="connection_connected">Conectado</string>
+  <string name="connection_error">Conexión interrumpida. Puedes volver a conectar.</string>
+  <string name="connection_protocol_error">Respuesta OBD no válida o protocolo no compatible.</string>
+  <string name="connection_vehicle_unavailable">Adaptador disponible, pero la centralita no responde. Comprueba el contacto y vuelve a conectar.</string>
+  <string name="connection_timeout">El adaptador tardó demasiado en responder. Vuelve a conectar.</string>
+  <string name="active_protocol">Protocolo: %1$s</string>
 </resources>

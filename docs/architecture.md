@@ -7,10 +7,11 @@ dashboard behavior and performance work prioritize this personal vehicle. Interf
 isolate simulation, parsing and transport for testing. Vehicle-specific readings must
 be verified against the actual T5 and adapter before they enter the dashboard.
 
-One Gradle `app` module keeps the initial build simple. The only current production
-package is `presentation`, containing `MainActivity` and a stateless Compose launch
-screen. There is no mutable application state yet. The following packages are added
-when their first behavior is implemented:
+One Gradle `app` module keeps the build simple. Presentation now contains the Compose
+dashboard and a ViewModel exposing StateFlow. Domain contains readings with explicit
+availability/provenance and the repository contract. Data provides deterministic
+simulation through that contract and coordinates OBD sessions. Transport provides
+Bluetooth Classic RFCOMM and an ELM test adapter behind the same typed interface.
 
 ```text
 app/src/main/java/com/machinedashboard/
@@ -31,10 +32,13 @@ parsing and scheduling remain separate from the socket implementation. Domain ha
 Android or Compose dependency. The application composition root wires implementations
 manually. Split modules only when boundaries or build performance justify it.
 
-Milestone 1 introduces immutable telemetry models, a `TelemetryRepository` contract,
-a simulated `TelemetryDataSource`, a ViewModel exposing `StateFlow<DashboardUiState>`,
-and explicit user actions. Compose collects state with lifecycle awareness. Simulation
-and live sources are selected atomically; samples carry provenance and availability.
+The first milestone 1 delivery implements immutable telemetry samples, a
+`TelemetryRepository` contract, a simulated `TelemetryDataSource` and a ViewModel
+exposing StateFlow. The activity wires constructors through a lightweight factory.
+Compose collects with lifecycle awareness; polling stops when the screen has no active
+collector. Scenario changes cancel the previous sequence and restart from its first
+sample. Each sample carries provenance and explicit unavailable reasons. The live source
+uses a connection contract; source changes atomically clear previous values.
 
 Milestone 2 introduces `VehicleConnection`, `ObdTransport`, and a serialized session
 coordinator. Commands are typed allowlisted operations converted into fixed wire
@@ -45,6 +49,18 @@ first real preferences and structured-history requirement respectively.
 
 ## Session and safety design
 
+The approved horizontal cluster uses Compose for navigation, settings and semantic
+interaction targets, with resolution-independent Canvas instruments for Inicio and
+Tablero. Header and lower tabs retain native touch sizing. Optional `ClusterDetails`
+belongs to its telemetry sample; live/fake OBD samples never inherit demonstration
+fuel, gear, trips, GPS or temperatures. No new permissions or storage were introduced.
+The fixed landscape manifest requirement is scoped to the owner's head unit; its
+two orientation lint advisories are suppressed only on that activity attribute.
+The body now fills its available viewport: cards and panels distribute horizontally,
+while circular instruments move to their slots with uniform local scaling. Semantic
+targets use the same independent horizontal/vertical positioning. Immersive mode
+hides system bars with transient swipe access and preserves display-cutout clearance.
+
 A single coroutine owns sequential requests and a configurable polling interval.
 Connection state distinguishes disconnected, connecting, initializing, connected,
 and typed failures. Socket I/O runs off the main thread. Cancellation and disconnect
@@ -54,7 +70,8 @@ lifecycle ends; resuming requires explicit reconnection until background behavio
 
 The parser treats all response text as untrusted: bounded bytes and lines, strict
 hex lengths, expected mode/PID and payload size, numeric checks, and explicit adapter
-status handling. Multi-ECU responses need a documented selection policy. Unsupported,
+status handling. Identical duplicate ECU payloads are accepted; conflicting payloads
+are rejected rather than choosing a responder silently. Unsupported,
 temporarily missing, malformed, stale and valid-zero values remain distinct.
 
 Use discovery before polling. No manufacturer-specific sensor assumptions. Distinguish
