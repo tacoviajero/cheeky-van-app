@@ -1,5 +1,7 @@
 # Reglas de trabajo
 
+La política global de esfuerzo y validación proporcional y los complementos locales de este archivo son obligatorios para todas las tareas y sesiones del proyecto.
+
 ## Alcance y decisiones
 
 - El propietario decide el comportamiento y alcance del producto. Resuelve los detalles técnicos menores dentro del alcance autorizado y comunica las suposiciones relevantes.
@@ -56,3 +58,11 @@ La [política obligatoria compartida](https://github.com/tacoviajero/engineering
 - Sé directo y concreto. Explica consecuencias y decisiones relevantes con detalle proporcional al cambio.
 - Evita autoelogios, comentarios sobre la profundidad del análisis y contrastes con enfoques inferiores.
 - Mantén la documentación breve y actualizada; enlaza la información existente para evitar duplicaciones.
+
+## Política obligatoria de esfuerzo y validación proporcional
+
+La sección [Política global de esfuerzo y validación proporcional](#política-global-de-esfuerzo-y-validación-proporcional) establece las obligaciones comunes. Se aplican además estos complementos locales:
+
+- Entrega soluciones correctas con el mínimo esfuerzo necesario para alcanzar una confianza razonable. Cada actividad debe aportar valor a la tarea aprobada; administra responsablemente tiempo, tokens, llamadas al modelo y recursos computacionales. No optimices por cantidad de pruebas, código o exhaustividad aparente.
+- Resuelve las operaciones rutinarias comprendidas en el alcance aprobado sin solicitar autorización para cada una. Informa cuando una decisión afecte materialmente al alcance, riesgo, costo o comportamiento solicitado.
+- Declara terminada la tarea cuando se cumplan sus criterios de aceptación, pasen las verificaciones necesarias, no existan fallos conocidos relacionados que impidan completarla y estén documentadas las limitaciones relevantes.

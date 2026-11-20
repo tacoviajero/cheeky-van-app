@@ -14,12 +14,26 @@ hitos futuros representan planificación existente; su implementación queda suj
 la aprobación del hito correspondiente. Las propuestas nuevas requieren una decisión
 del propietario.
 
-Versión documentada: 0.1.0. La base del hito 0 está implementada y bajo revisión.
-La evidencia y los pendientes se mantienen en [validación](docs/validation.md).
+Versión documentada: 0.1.0. Estado revisado el 2026-11-19 en la carpeta original,
+rama `codex/preserve-local-development`, HEAD `92dc33e`.
+El propietario aprobó la fundación del hito 0 el 2026-11-16; quedó integrada mediante
+la PR #1 (merge `07af106`). El desarrollo posterior de tablero, simulación,
+Bluetooth/OBD y ubicación está preservado en `5289953`; `92dc33e` integra además
+las instrucciones globales. El propietario revisó y aprobó el incremento actual y
+autorizó su publicación; la fusión de la PR requiere aprobación posterior.
+La evidencia y sus límites se mantienen en [validación](docs/validation.md).
+
+La fundación está cerrada. El incremento posterior está implementado parcialmente
+respecto al producto completo y cuenta con comprobaciones automatizadas y en el
+Xiaomi. La conexión real a la T5 y la adaptación al estéreo definitivo siguen
+pendientes. Las pruebas históricas de la pantalla inicial en vertical y con texto
+al 200 % pertenecen al hito 0; el tablero actual usa exclusivamente horizontal.
 
 ## Coordinación del trabajo
 
+- Todas las sesiones deben aplicar la [política obligatoria de esfuerzo y validación proporcional](AGENTS.md#política-obligatoria-de-esfuerzo-y-validación-proporcional), incluida en las reglas de trabajo.
 - Plataforma exclusiva: Android nativo.
+- Destino de uso: estéreo Android del coche, tipo tablet instalada en el tablero; orientación única horizontal y cinco tabs inferiores. El Xiaomi es un dispositivo provisional de pruebas. Resolución del estéreo pendiente de conocer.
 - Chat de desarrollo: implementación, arquitectura, pruebas y notas técnicas breves.
 - Chat de control de versiones: commits, ramas, publicación, PR y seguimiento de CI.
 - Chat de APK: generación y exportación de los APK para instalación y pruebas.
@@ -29,31 +43,42 @@ La evidencia y los pendientes se mantienen en [validación](docs/validation.md).
 
 - Propietario de la camioneta que consulta el estado disponible del vehículo.
 - Desarrollo y comprobación del tablero mediante datos simulados.
-- Futuras sesiones de lectura mediante un adaptador previamente emparejado.
+- Sesiones de lectura mediante un adaptador previamente emparejado.
+- El propietario informa que Car Scanner ya se conectó a esta T5 con el adaptador Bluetooth y leyó 201 parámetros. Su listado/exportación será la referencia prioritaria para seleccionar las lecturas reales; el catálogo todavía no se ha compartido en este proyecto.
+- El propietario confirma sensor de temperatura de aceite en el cárter y lectura de ese dato mediante Car Scanner. La disponibilidad en su T5 queda registrada; conectar esa lectura a Cheeky Van App sigue pendiente.
 
 La app es una herramienta complementaria. Los instrumentos y advertencias del
 fabricante siguen siendo la referencia para operar el vehículo.
 
 ## Requisitos y aceptación
 
-Los criterios siguientes describen cómo verificar cada requisito; su presencia en
-esta tabla no significa que la verificación haya sido ejecutada.
+La columna Estado distingue implementación, evidencia ejecutada y pendientes.
+Las verificaciones en Xiaomi corresponden a la entrega del 2026-11-17, cuya
+equivalencia con el código actual se comprobó el 2026-11-19; no son pruebas del
+estéreo definitivo ni del vehículo. Detalle y referencias en `docs/validation.md`.
 
-| ID | Requisito y etapa | Criterio de aceptación / verificación |
+| ID | Requisito y etapa | Estado y verificación |
 | --- | --- | --- |
-| BASE-01 | Hito 0: pantalla inicial oscura con estado de disponibilidad y aviso de seguridad. | Prueba de lanzamiento e inspección en Android; comprobar orientación, fuente grande, áreas seguras y desplazamiento según `docs/milestone-0.md`. |
-| BASE-02 | Hito 0: base sin permisos sensibles ni funciones de red, conexión o almacenamiento. | Pruebas de privacidad y verificación del manifiesto empaquetado; reglas de copia y transferencia excluyen datos. Se permite el permiso interno de firma aportado por AndroidX. |
-| BASE-03 | Hito 0: compilación y validación reproducibles. | Formato, lint estricto, pruebas JVM, APK de aplicación y de instrumentación; ejecución en dispositivo y controles alojados según las puertas del hito. |
-| SIM-01 | Hito 1 planificado: fuente de telemetría simulada con procedencia explícita. | Verificar que el estado presentado identifica la simulación y las muestras conservan su origen; detalle funcional por acordar al abrir el hito. |
-| DATA-01 | Simulación y conexión futura: distinguir disponibilidad y validez de las lecturas. | Pruebas que diferencien cero válido, ausencia, incompatibilidad, respuesta malformada y dato desactualizado; limpiar muestras al cambiar de fuente o conexión. |
-| CON-01 | Hito 2 planificado: elegir un dispositivo ya emparejado y solicitar el permiso de conexión cuando corresponda. | Pruebas de permisos, selección, cancelación y desconexión, más validación del adaptador y vehículo estacionado. |
-| OBD-01 | Hito 2 planificado: descubrir PIDs compatibles antes de leer RPM, velocidad, temperatura de refrigerante y carga calculada. | Pruebas del descubrimiento y parser; comprobar disponibilidad y valores con hardware. La compatibilidad de cada PID en este T5 está pendiente de validación. |
-| OBD-02 | Toda conexión futura: ejecutar únicamente operaciones de lectura y configuración segura permitidas. | Pruebas de la lista de comandos, límites de entrada, respuestas inesperadas y selección de ECU; revisión previa a habilitar el transporte real. |
-| CON-02 | Conexión futura: cerrar recursos al cancelar o desconectar y detener la sesión al terminar el ciclo de vida visible. | Pruebas de transporte simulado y hardware para cierre de socket, revocación de permisos y reconexión; reconectar explícitamente al regresar. |
+| BASE-01 | Hito 0: pantalla inicial oscura, disponibilidad y aviso de seguridad. | Cerrado y aprobado. Lanzamiento y revisión visual en Xiaomi, ambas orientaciones y texto al 200 %, sobre la pantalla histórica. |
+| BASE-02 | Hito 0: base sin permisos sensibles; extensiones autorizadas posteriormente. | Base histórica comprobada. Actualmente: Bluetooth emparejado, ubicación COARSE/FINE en primer plano y permiso interno de firma AndroidX; backup/transferencia excluidos. Tres pruebas actuales de manifiesto y comprobación empaquetada aprobadas. |
+| BASE-03 | Compilación y validación reproducibles. | Fundación integrada con CI aprobado. Desarrollo posterior con formato, lint, compilación, APK e instrumentación locales registrados; CI del incremento actual pendiente al publicarlo. |
+| SIM-01 | Fuente de telemetría simulada con procedencia explícita. | Implementada y comprobada con tres pruebas JVM, escenarios y pruebas UI en Xiaomi; cero válido y dato ausente diferenciados. |
+| DASH-01 | RPM, velocidad, carga, refrigerante, aceite y admisión/turbo. | Tablero implementado y revisado en Xiaomi. OBD implementa cuatro lecturas: RPM, velocidad, refrigerante y carga; falta comprobarlas con la T5. Aceite y datos ampliados tienen presentación simulada o ausencia explícita; integración real pendiente. |
+| NAV-01 | Inicio, Tablero, Mapa, Diagnóstico y Ajustes; horizontal y tabs inferiores. | Navegación implementada; lanzamiento horizontal, detalles y retorno comprobados en Xiaomi. Mapa y Diagnóstico son estados vacíos. Ajustes permite escenarios, conexión y ubicación. |
+| DASH-02 | Voltaje, acelerador, consumo, correcciones de combustible y combustible restante. | Tarjetas y barras implementadas; datos ampliados simulados o ausentes según escenario. Autonomía y admisión/turbo abren detalles; comprobaciones UI registradas. Cálculos y lecturas reales pendientes. |
+| DASH-03 | Hora, temperatura exterior, dos trips, totales, horas de motor; RPM 0–6.000 y velocidad 0–240. | Instrumentos y escalas implementados y revisados en Xiaomi; velocímetro central ampliado y encabezado estable. Hora del Android; temperatura exterior, contadores y marchas son demostración. Rojo RPM 5.000–6.000 según referencia; umbrales térmicos requieren validación del vehículo. Próximo evento solar probado con horario demo; cálculo por fecha/ubicación pendiente. |
+| MAP-01 | Mapa, elevación, subidas y bajadas. | Tab con estado vacío. Fuente cartográfica, perfil y cálculo de pendiente pendientes de definición e implementación. |
+| DIAG-01 | Catálogo completo de lecturas de ECU, averías y estados. | Tab con estado vacío. Catálogo concreto de los 201 parámetros observados en Car Scanner y lecturas específicas pendientes de integrar. |
+| GEO-01 | Coordenadas y altitud reales del Android, independientes de OBD/simulación. | Implementado. Tres pruebas JVM de validez/caducidad aprobadas; permiso preciso, coordenadas y altitud observados en Xiaomi durante simulación. Limpieza al salir y retiro tras 60 s inspeccionados en código; revocación, proveedores y estéreo pendientes de comprobación manual. |
+| DATA-01 | Distinguir cero, ausencia, incompatibilidad, malformación y caducidad; aislar fuentes. | Modelos y pruebas JVM de simulación, protocolo y ubicación; UI de sensor ausente y limpieza al desconectar comprobadas con adaptador de prueba. Errores y datos reales requieren hardware. |
+| CON-01 | Elegir adaptador ya emparejado y solicitar permiso de conexión. | Flujo y RFCOMM implementados; inspección de código y controles de prueba en Xiaomi. Permisos reales de Bluetooth, selección y conexión con el adaptador pendientes. |
+| OBD-01 | Descubrir PIDs antes de leer RPM, velocidad, refrigerante y carga. | Parser/coordinador comprobados con transporte simulado. Compatibilidad, unidades y valores en esta T5 pendientes de hardware. |
+| OBD-02 | Lista fija de lectura/configuración segura y entrada acotada. | Implementada e inspeccionada; pruebas de parser/allowlist registradas. Respuestas ambiguas de ECU rechazadas. Sesión real con adaptador pendiente. |
+| CON-02 | Cancelación, desconexión, cierre de recursos y sesión ligada a actividad visible. | Pruebas JVM de sesión y prueba UI de desconexión con adaptador simulado aprobadas; cierre al salir inspeccionado en código. Revocación, pérdida y reconexión con socket real pendientes. |
 
 ## Alcance posterior y exclusiones
 
-El roadmap existente menciona tableros configurables, GPS, mapas, viajes,
+El roadmap existente menciona tableros configurables, mapas, viajes,
 estimación de combustible e historial diagnóstico para nuestra T5. Sus reglas y criterios detallados
 siguen pendientes de definición y aprobación.
 
@@ -66,17 +91,20 @@ incorpora ninguna al alcance.
 - Android 6.0 / API 23 o posterior; Kotlin y Compose/Material 3.
 - Un módulo Android con separación progresiva entre presentación, dominio, datos y transporte. Detalle en [arquitectura](docs/architecture.md) y [ADR inicial](docs/decisions/0001-foundation.md).
 - Toolchain y dependencias fijadas según [README](README.md) y [procedencia de herramientas](docs/toolchain.md).
-- Futuro transporte Bluetooth Classic/RFCOMM y protocolo ELM327/OBD, sujetos a diferencias de firmware y disponibilidad real de sensores.
+- Transporte Bluetooth Classic/RFCOMM y protocolo ELM327/OBD, sujetos a diferencias de firmware y disponibilidad real de sensores.
 - La optimización para la T5 se basa en valores y comandos verificados con nuestro vehículo y adaptador; cada lectura específica de Volkswagen requiere comprobar disponibilidad e interpretación.
 - Los límites de refresco y consumo deben medirse con hardware antes de comprometer valores de rendimiento.
 - Preferencias y diagnósticos futuros locales; logs redactados con participación explícita del usuario, según el alcance documentado en el README.
 
 ## Decisiones pendientes y cierre de hitos
 
-- Cerrar la revisión del propietario y los controles de repositorio del hito 0. El APK con el nombre corregido pasó la prueba de inicio y la revisión visual en el Xiaomi con Android 16, en ambas orientaciones y con texto al 200 %. Consultar [criterios del hito](docs/milestone-0.md) y [evidencia vigente](docs/validation.md).
+- Mockups de Inicio y Tablero general aprobados e implementados el 2026-11-17, incluidos los estados de marcha en simulación. La [referencia visual](docs/propuesta-visual.md) define orientación horizontal y tabs inferiores para el estéreo Android. APK final instalado y comprobado en Xiaomi; ver [evidencia](docs/validation.md). Faltan lecturas adicionales reales y comprobación en el estéreo; Mapa y Diagnóstico muestran estados vacíos.
+- Fundación cerrada e integrada. Incremento preservado en `5289953` e integrado con las instrucciones globales en `92dc33e`, revisado y aprobado por el propietario; publicación y CI corresponden al chat de control de versiones. Fusión pendiente de aprobación posterior.
 - Confirmar el identificador de paquete antes de distribuir una versión firmada.
-- Al abrir el hito 1, concretar valores simulados, controles de interacción y criterios de aceptación detallados.
-- Antes de conexión real, resolver la política de múltiples ECU y verificar compatibilidad, permisos, errores y rendimiento con el adaptador.
+- La simulación y el tablero horizontal ya tienen comprobaciones en Xiaomi y aceptación del incremento actual por el propietario. Queda revisión en el estéreo definitivo; el documento de [hito 1](docs/milestone-1.md) conserva la planificación de esa primera entrega.
+- Con hardware, verificar compatibilidad, permisos, errores y rendimiento con el adaptador. Las respuestas de varias ECU con valores distintos se rechazan como ambiguas; las idénticas se aceptan.
+- Obtener el catálogo de Car Scanner de esta T5 (nombres, unidades y valores disponibles); comprobar allí aceite, presión, temperaturas y RPM del turbo antes de profundizar en PIDs específicos. Si falta un dato accesible, informar y avanzar con las demás lecturas.
+- Marcha actual y sugerida implementadas visualmente en simulación, incluida reversa y sugerencias condicionales a izquierda/derecha. Detección/estimación real y reglas de recomendación aún requieren definición y validación.
 
 Cada cambio de alcance debe actualizar los requisitos afectados. La estrategia de
 pruebas está en [testing](docs/testing.md); las reglas de entrega, en

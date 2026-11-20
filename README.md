@@ -5,9 +5,16 @@ for our 2013 Volkswagen Transporter T5, 2.0 TDI CAAC, manual, with a Bluetooth C
 ELM327-compatible adapter. Our van and its owners' needs guide the interface, telemetry
 and performance decisions. Version: **0.1.0**, foundation under review.
 
-The current application opens a dark, scrollable foundation screen with connection
-availability and a safety notice. Telemetry and adapter connectivity are planned in
-the following milestones. Always use the vehicle's instruments and manufacturer warnings.
+The current application contains the owner-approved horizontal instrument cluster:
+Inicio, Tablero, lower tabs and source indicators. Canvas instruments share telemetry
+with accessible Compose values and detail actions. Ajustes holds Bluetooth and three
+simulation scenarios. Map and diagnostic tabs currently show their empty states.
+A fixed SIMULACIÓN
+indicator identifies demonstration data. Bluetooth selects an already-paired adapter;
+the separate PRUEBA mode exercises an ELM simulator without the vehicle. Live readings
+still require validation with the T5 and adapter;
+the owner's Car Scanner catalog of 201 parameters will guide sensor selection.
+Always use the vehicle's instruments and manufacturer warnings.
 
 ## Requirements and setup
 
@@ -56,11 +63,11 @@ version control. See [testing](docs/testing.md) and [validation results](docs/va
 
 ## Bluetooth and supported telemetry
 
-For future live validation, pair the adapter in Android system settings first.
-The app will select from already-paired devices and request connection permission
+For live validation, pair the adapter in Android system settings first.
+The app selects from already-paired devices and requests connection permission
 when needed. The read-only telemetry scope is RPM (`010C`), speed (`010D`), coolant
 temperature (`0105`), and calculated engine load (`0104`), after supported-PID discovery.
-These operations are scheduled for milestone 2. Availability on this T5 requires
+These operations are implemented with an allowlisted transport. Availability on this T5 requires
 hardware validation; generic OBD-II does not guarantee Volkswagen-specific values.
 
 ## Architecture and delivery
@@ -73,14 +80,18 @@ tests are a separate required gate until an emulator CI job is configured.
 
 ## Privacy and limitations
 
-The foundation requests no sensitive platform permissions and has no network, Bluetooth, location,
-telemetry, persistence, or logging feature. Backup and transfer rules exclude app data.
+Bluetooth uses BLUETOOTH on API 23–30 and runtime BLUETOOTH_CONNECT on API 31+.
+The app lists paired devices without discovery. Foreground coarse/fine location
+permission supplies actual device coordinates and available altitude, independently
+of the engine simulation. Location updates run only while the activity is visible.
+There is no
+network, persistence or logging feature. Backup and transfer rules exclude app data.
 AndroidX contributes one internal signature permission that requires no user prompt.
 OEM device-to-device transfer policies can vary. Future preferences and diagnostics
 remain local, with explicit read-only command allowlisting and opt-in redacted logs.
 Never put keys, identifiers, raw vehicle logs, or private captures in Git or CI artifacts.
 
-Simulation, configurable dashboards, GPS, maps, trips, fuel estimation,
+Configurable dashboards, GPS, maps, trips, fuel estimation,
 and diagnostic history for our T5 remain in the roadmap. The current scope targets
 this single vehicle. The next milestone starts after the
 owner approves the foundation. Hardware behavior and UI rendering require device validation.

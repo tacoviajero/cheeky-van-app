@@ -19,9 +19,25 @@ class ManifestSecurityTest {
     }
 
     @Test
-    fun foundationRequestsNoDeviceOrNetworkPermissions() {
+    fun requestsOnlyPairedBluetoothAndForegroundLocationPermissions() {
         val manifest = manifest()
-        assertEquals(0, manifest.getElementsByTagName("uses-permission").length)
+        val namespace = "http://schemas.android.com/apk/res/android"
+        val nodes = manifest.getElementsByTagName("uses-permission")
+        val permissions = (0 until nodes.length).associate { index ->
+            val permission = nodes.item(index) as Element
+            permission.getAttributeNS(namespace, "name") to
+                permission.getAttributeNS(namespace, "maxSdkVersion")
+        }
+        assertEquals(
+            mapOf(
+                "android.permission.BLUETOOTH" to "30",
+                "android.permission.BLUETOOTH_CONNECT" to "",
+                "android.permission.ACCESS_COARSE_LOCATION" to "",
+                "android.permission.ACCESS_FINE_LOCATION" to ""
+            ),
+            permissions
+        )
+        assertEquals(4, nodes.length)
         assertEquals(0, manifest.getElementsByTagName("uses-permission-sdk-23").length)
     }
 

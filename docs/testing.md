@@ -5,7 +5,7 @@
 `spotlessCheck` enforces Kotlin formatting via ktlint and project whitespace.
 `lintDebug` runs Android static analysis with warnings treated as errors. Kotlin compiler
 warnings also fail builds. `testDebugUnitTest` runs three privacy regression tests:
-the foundation requests no permissions, disables Android backup with explicit rules,
+the app requests only paired-Bluetooth connection permissions, disables Android backup with explicit rules,
 and excludes persistent storage from both cloud backup and device transfers. These parse
 the actual source manifest and backup configuration, rather than generated constants.
 Dependency-version update notices are excluded from lint because the compatible
@@ -17,15 +17,29 @@ API 36; all other enabled lint warnings remain fatal. See [ADR 0002](decisions/0
 the Compose launch test. `connectedDebugAndroidTest` executes that test using AndroidJUnitRunner
 on a connected device/emulator. It checks the title, connection status and safety notice.
 The source-manifest checks are supplemented by `scripts/Test-PackagedManifest.ps1`,
-which runs after builds locally and in CI. It allows only AndroidX's internal
-`DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION` signature permission and rejects any platform
-permission; backup must remain disabled. This detects permissions introduced by dependencies.
+which runs after builds locally and in CI. It allows AndroidX's internal signature
+permission, BLUETOOTH limited to API 30, BLUETOOTH_CONNECT and foreground COARSE/FINE
+location. Backup remains disabled. Other permissions are rejected, including
+discovery, background location and network access.
 
 CI builds both APKs and uploads reports. Instrumentation execution is a separate required
 validation until an emulator CI job is configured. Unit-test XML reports live under
 `app/build/test-results/`; HTML reports under `app/build/reports/`.
 
 ## Next-milestone automation
+
+`ObdConnectionTest` covers the fixed command set, parser boundaries and malformed
+responses, initialization/discovery, unsupported PIDs, timeout, cancellation,
+connection loss/reconnect and clearing values when switching sources. The focused
+Android test `testAdapterConnectsAndDisconnectClearsReadings` exercises the new controls.
+Real Bluetooth permissions, socket behavior and T5 values require hardware validation.
+
+The first simulation delivery has three focused `SimulationTest` JVM tests covering
+valid zero versus missing/unverified values, repeatable frames and relative-pressure
+units, scenario replacement and cancellation when collection stops. Run them with
+`testDebugUnitTest --tests com.machinedashboard.SimulationTest`.
+The updated `FoundationLaunchTest` contains dashboard launch and missing-sensor UI
+checks. Compiling those tests is separate from executing them on a device.
 
 Milestone 1: simulation scenarios, availability, source isolation, ViewModel states,
 telemetry transformations, and lifecycle behavior. Use virtual coroutine time for
