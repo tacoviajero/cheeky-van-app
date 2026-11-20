@@ -1,6 +1,87 @@
-# Foundation validation evidence
+# Evidencia de validación — fundación y desarrollo local
 
-Date: 2026-11-16. Scope: milestone 0, development version 0.1.0.
+## Estado vigente y cierre documental — 2026-11-19
+
+Revisión en la carpeta original, rama `codex/preserve-local-development`, HEAD
+`92dc33e`, versión 0.1.0. La fundación fue aprobada el 2026-11-16 e integrada en
+la PR #1, merge `07af106`. El incremento posterior está preservado en `5289953`;
+`92dc33e` incorpora la integración de instrucciones globales. El propietario revisó
+y aprobó el incremento actual y autorizó su publicación. Los controles alojados
+quedan a cargo de control de versiones; la fusión requiere aprobación posterior.
+
+**Separación de evidencia:** las secciones históricas inferiores registran cada
+entrega y sus pendientes en aquel momento. La pantalla inicial del hito 0, sus
+pruebas en vertical/texto al 200 % y su CI no certifican el tablero posterior.
+Los permisos originales sin acceso sensible corresponden a esa base; el manifiesto
+actual incluye las extensiones autorizadas de Bluetooth y ubicación en primer plano.
+Los pendientes de instalación resueltos más adelante se conservan como cronología.
+Este resumen y la última sección de ubicación describen el estado actual.
+
+### Comprobaciones de este cierre y reutilización
+
+Cambio documental de nivel 1, limitado a `PROJECT.md` y este registro. Se inspeccionó
+el código de presentación, simulación/conexión, protocolo, manifiesto y ubicación,
+y se cotejaron los artefactos locales existentes:
+
+- Los **40 archivos versionados de código, pruebas, scripts y configuración de
+  compilación** coinciden con la entrega `2026-11-17-5f63216-cluster-location-debug`.
+  Para cambios locales se comparó SHA-256 con `source-state.json`; los demás se
+  compararon con la revisión base `5f632161487fb9c8f8bf1ae540bbbc6d8d1f60cf`,
+  normalizando únicamente CRLF/LF. La pantalla histórica eliminada sigue ausente.
+- `git diff 5289953 HEAD` sobre esos componentes está vacío. La integración
+  posterior conservó el desarrollo comprobado. Los documentos e instrucciones
+  tienen su propia evolución y no se usan como igualdad de código ejecutable.
+- Ambos APK existentes coinciden con los hashes de `delivery.json` de la última
+  entrega, reproducidos en la sección final. Su build aprobado en 51 s y las
+  comprobaciones locales de formato/lint/manifiesto se reutilizan para este código.
+- Se leyeron los XML actuales: `DevicePositionTest` 3/3 y `ManifestSecurityTest`
+  3/3, sin fallos, errores ni omisiones. Se verificaron los logs privados de
+  instrumentación: `cluster-test.log` (`OK (3 tests)`, 10.325 s) y
+  `cluster-location-test.log` (`OK (1 test)`, 3.256 s), entre otros incrementos.
+- La entrega `cluster-debug/delivery.json` registra inspección de los XML de
+  `ClusterPresentationTest` 3/3 y `SimulationTest` 3/3. La entrega
+  `bluetooth-debug/delivery.json` registra 10/11 iniciales y el rerun focalizado
+  corregido 1/1; el XML archivado original de `ObdConnectionTest` conserva aquel
+  fallo de limpieza y **no representa una nueva regresión**. El resultado corregido
+  está respaldado por el registro de entrega; su XML individual ya no está en el
+  directorio actual, reemplazado por ejecuciones posteriores.
+
+No se ejecutaron nuevas pruebas, compilaciones ni sesiones de dispositivo en este
+cierre: la equivalencia comprobada permite reutilizar los resultados anteriores.
+La revisión final comprueba enlaces locales, consistencia documental y whitespace.
+Los resultados de dispositivo siguientes son los observados en las entregas de
+noviembre 16–17, no una nueva conexión al teléfono o al vehículo el día 19.
+
+### Cobertura actual y límites
+
+| Componente | Implementado / listo para revisar | Evidencia reutilizada | Pendiente |
+| --- | --- | --- | --- |
+| Tablero horizontal | Inicio, Tablero, cinco tabs inferiores, detalles, encabezado estable, pantalla completa y curvas laterales ajustadas al velocímetro | Inspección de código y manifiesto landscape; pruebas UI y capturas Xiaomi Android 16, incluida última entrega de ubicación | Resolución/áreas seguras del estéreo definitivo; accesibilidad del nuevo cluster con texto grande y otras dimensiones |
+| Simulación | Escenarios, datos ausentes, origen visible, instrumentos, marchas y sugerencias condicionales; incremento aceptado por el propietario | Pruebas JVM de simulación/presentación y tres pruebas UI del cluster; última prueba de navegación aprobada | Marchas reales y cálculo de recomendaciones |
+| Bluetooth/OBD | Selección de emparejados, permiso, RFCOMM/SPP, descubrimiento y cuatro PIDs (RPM, velocidad, refrigerante, carga), cierre de sesión | Inspección de código; pruebas JVM con transporte simulado; conexión/desconexión del adaptador PRUEBA en Xiaomi | Permisos/selección/socket reales, firmware, ECU, compatibilidad, lecturas y rendimiento en T5; pérdida, revocación y reconexión con hardware |
+| Ubicación | LocationManager GPS/red en primer plano, permisos COARSE/FINE, posición independiente de OBD/demo, caducidad 60 s y altitud opcional | Tres pruebas JVM de validez/caducidad; código de inicio/cierre inspeccionado; permiso preciso y coordenadas/altitud reales observados en Xiaomi con motor simulado | Revocación/denegación, cambios de proveedor, pérdida de señal y ciclo de vida comprobados manualmente; recepción en estéreo |
+| Privacidad | Permisos acotados, backup deshabilitado y datos de ubicación en memoria | Tres pruebas actuales y manifiesto empaquetado de entrega aprobado; inspección actual de permisos/código | Comportamiento de permisos reales durante la validación de hardware |
+
+La hora procede del Android. Temperatura exterior, combustible/autonomía, contadores,
+horas de motor, aceite y mediciones ampliadas siguen simulados o ausentes en datos
+de vehículo; su integración real sigue pendiente. La disponibilidad de aceite en la
+T5 está confirmada por el propietario. El selector del próximo evento solar está
+probado con horario demo; los horarios por fecha/ubicación siguen pendientes.
+Mapa y Diagnóstico muestran estados vacíos; el catálogo de 201 parámetros observado
+en Car Scanner queda pendiente de obtener e integrar. Las bandas térmicas no
+constituyen umbrales de alarma ya validados en el vehículo.
+
+**Cierre:** incremento implementado revisado y aprobado por el propietario, con
+publicación autorizada. Quedan pendientes el hardware indicado, CI de la publicación,
+la aprobación posterior de la fusión y la validación de distribución firmada/identificador de paquete.
+La cobertura de dominio/protocolo del 80 % prevista en `docs/testing.md` todavía
+carece de medición registrada; estas pruebas específicas no acreditan ese umbral
+ni cierran todos los hitos funcionales posteriores.
+
+## Archivo histórico: hito 0 — 2026-11-16
+
+Scope: milestone 0, development version 0.1.0. Los estados de rama, CI y aceptación
+de las siguientes secciones corresponden a sus fechas; el estado vigente está arriba.
 
 ## Automated results
 
@@ -36,7 +117,7 @@ APK locations: `app/build/outputs/apk/debug/app-debug.apk` and
 ## Repository and hosted CI
 
 Local identity: Juan Nunez, using the email provided by the owner. The working branch
-is `feature/milestone-0-foundation`; foundation source commit: `8d89c5c`.
+at that time was `feature/milestone-0-foundation`; foundation source commit: `8d89c5c`.
 `origin` is `https://github.com/tacoviajero/cheeky-van-app.git`.
 
 After explicit owner approval, the base `.gitignore` commit
@@ -115,7 +196,7 @@ the remaining visual checks below.
 | Permissions | Foundation opens without sensitive permission prompts | Passed in the inspected launch; packaged manifest privacy check also passed |
 | Instrumentation | `FoundationLaunchTest` passes on the recorded device/API | Renamed APK passed: 1 test, 1.578s, Android 16 / API 36 |
 
-## Remaining acceptance gates
+## Acceptance gates recorded at milestone 0 (historical)
 
 - Owner review of the foundation; scrolling beyond the current content and additional device sizes remain future regression cases.
 - Hosted CI passed on correction `17754f7`; verify the latest documentation revision in PR checks before merge.
@@ -126,8 +207,9 @@ Vehicle/ELM327 hardware tests, refresh-rate measurements and release validation 
 pending. A native symbol-stripping notice for the upstream Compose graphics
 library was informational; the library is packaged intact in the development APK.
 
-Milestone 0 remains under review until these gates are satisfied. The recommended next
-implementation is milestone 1 (simulation), after owner approval of the foundation.
+At this point in the historical record, milestone 0 remained under review pending
+these gates. Owner approval is recorded below; integration in `07af106` is confirmed
+in the current summary. Hardware and release checks remain separate from that closure.
 
 ## Product name and scope correction — 2026-11-16
 
@@ -243,6 +325,12 @@ The owner approved the foundation on 2026-11-16 and authorized moving to definit
 of the simulated dashboard. Repository integration remains owned by the version-control
 chat. The proposed first simulation delivery is in [milestone 1](milestone-1.md);
 its controls and behavior await agreement before implementation.
+
+## Desarrollo posterior al hito 0 — cronología de entregas
+
+Las siguientes entradas conservan los resultados de cada incremento. Las menciones
+de implementación futura o pruebas pendientes describen aquel momento; para el
+estado consolidado consultar el resumen vigente al inicio de este documento.
 
 ## First dashboard implementation — 2026-11-16
 
